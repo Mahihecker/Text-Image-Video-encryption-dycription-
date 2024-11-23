@@ -23,7 +23,7 @@
     <!-- Section to display the encrypted video -->
     <h4>Encrypted Video:</h4>
     <video controls class="preview-video">
-        <source src="{{ url_for('static', filename='processed_videos/' ~ encrypted_video) }}" type="video/mp4">
+        <source src="{{ url_for('static', filename=current_encrypted_video) }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     {% endif %}
