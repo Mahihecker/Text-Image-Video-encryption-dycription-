@@ -1,12 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Cryptography</title>
-</head>
-<body>
-    <h1>Video Cryptography</h1>
-    <p>Video encryption and decryption features will be implemented here.</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Video Cryptography{% endblock %}
+
+{% block content %}
+<h2>Video Cryptography</h2>
+<p>Encrypt and decrypt your videos securely using this tool.</p>
+
+<!-- Video Encryption Form -->
+<div class="form-container">
+    <h3>Encrypt a Video</h3>
+    <form action="/video" method="post" enctype="multipart/form-data">
+        <!-- Input for uploading video -->
+        <input type="file" name="video" accept="video/*" class="file-input" required>
+        
+        <!-- Input for encryption key -->
+        <input type="text" name="encryption_key" placeholder="Enter encryption key" class="text-input" required>
+        
+        <!-- Submit button for encryption -->
+        <button type="submit" name="encrypt" class="button">Encrypt</button>
+    </form>
+    {% if encrypted_video %}
+    <!-- Section to display the encrypted video -->
+    <h4>Encrypted Video:</h4>
+    <video controls class="preview-video">
+        <source src="{{ url_for('static', filename='processed_videos/' ~ encrypted_video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    {% endif %}
+</div>
+
+<!-- Video Decryption Form -->
+<div class="form-container">
+    <h3>Decrypt a Video</h3>
+    <form action="/video" method="post" enctype="multipart/form-data">
+        <!-- Input for uploading encrypted video -->
+        <input type="file" name="video" accept="video/*" class="file-input" required>
+        
+        <!-- Input for decryption key -->
+        <input type="text" name="decryption_key" placeholder="Enter decryption key" class="text-input" required>
+        
+        <!-- Submit button for decryption -->
+        <button type="submit" name="decrypt" class="button">Decrypt</button>
+    </form>
+    {% if decrypted_video %}
+    <!-- Section to display the decrypted video -->
+    <h4>Decrypted Video:</h4>
+    <video controls class="preview-video">
+        <source src="{{ url_for('static', filename='processed_videos/' ~ decrypted_video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    {% endif %}
+</div>
+<a href="{{ url_for('index') }}" class="button">Back to Home</a>
+{% endblock %}

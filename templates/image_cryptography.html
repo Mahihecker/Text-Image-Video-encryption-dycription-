@@ -1,23 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Cryptography</title>
-</head>
-<body>
-    <h1>Image Cryptography</h1>
-    <form action="/encrypt" method="POST" enctype="multipart/form-data">
-        <h3>Encrypt an Image</h3>
-        <input type="file" name="image" required>
-        <input type="text" name="key" placeholder="Enter encryption key" required>
-        <button type="submit">Encrypt</button>
+{% extends 'base.html' %}
+
+{% block title %}Image Cryptography{% endblock %}
+
+{% block content %}
+<h2>Image Cryptography</h2>
+<p>Encrypt and decrypt your images securely using this tool.</p>
+
+<div class="form-container">
+    <h3>Encrypt an Image</h3>
+    <form action="/image" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" class="file-input" required>
+        <input type="text" name="encryption_key" placeholder="Enter encryption key" class="text-input" required>
+        <button type="submit" name="encrypt" class="button">Encrypt</button>
     </form>
-    <form action="/decrypt" method="POST" enctype="multipart/form-data">
-        <h3>Decrypt an Image</h3>
-        <input type="file" name="image" required>
-        <input type="text" name="key" placeholder="Enter decryption key" required>
-        <button type="submit">Decrypt</button>
+    {% if encrypted_image %}
+    <h4>Encrypted Image:</h4>
+    <img src="{{ url_for('static', filename='processed_images/' ~ encrypted_image) }}" alt="Encrypted Image" class="preview-image">
+    {% endif %}
+</div>
+
+<div class="form-container">
+    <h3>Decrypt an Image</h3>
+    <form action="/image" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" class="file-input" required>
+        <input type="text" name="decryption_key" placeholder="Enter decryption key" class="text-input" required>
+        <button type="submit" name="decrypt" class="button">Decrypt</button>
     </form>
-</body>
-</html>
+    {% if decrypted_image %}
+    <h4>Decrypted Image:</h4>
+    <img src="{{ url_for('static', filename='processed_images/' ~ decrypted_image) }}" alt="Decrypted Image" class="preview-image">
+    {% endif %}
+</div>
+
+{% if encrypted_image or decrypted_image %}
+<div class="form-container">
+    <h3>Currently Processed Images:</h3>
+    {% if encrypted_image %}
+    <p><strong>Encrypted Image:</strong></p>
+    <img src="{{ url_for('static', filename='processed_images/' ~ encrypted_image) }}" alt="Encrypted Image" class="preview-image">
+    {% endif %}
+    {% if decrypted_image %}
+    <p><strong>Decrypted Image:</strong></p>
+    <img src="{{ url_for('static', filename='processed_images/' ~ decrypted_image) }}" alt="Decrypted Image" class="preview-image">
+    {% endif %}
+</div>
+{% endif %}
+<a href="{{ url_for('index') }}" class="button">Back to Home</a>
+{% endblock %}

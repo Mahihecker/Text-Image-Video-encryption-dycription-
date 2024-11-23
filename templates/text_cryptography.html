@@ -1,12 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Cryptography</title>
-</head>
-<body>
-    <h1>Text Cryptography</h1>
-    <p>Text encryption and decryption features will be implemented here.</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Text Cryptography{% endblock %}
+
+{% block content %}
+<h2>Text Cryptography</h2>
+<p>Encrypt and decrypt your text securely using this tool.</p>
+
+<!-- Encryption Form -->
+<div class="form-container">
+    <h3>Encrypt Text</h3>
+    <form action="/text" method="post">
+        <!-- Input for plain text to encrypt -->
+        <textarea name="text" placeholder="Enter text to encrypt" class="text-input" required></textarea>
+        
+        <!-- Input for encryption key -->
+        <input type="text" name="encryption_key" placeholder="Enter encryption key" class="text-input" required>
+        
+        <!-- Submit button for encryption -->
+        <button type="submit" name="encrypt" class="button">Encrypt</button>
+    </form>
+    
+    {% if encrypted_text %}
+    <!-- Section to display the encrypted text result -->
+    <h4>Encrypted Text:</h4>
+    <div class="result-box">
+        <p>{{ encrypted_text }}</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Decryption Form -->
+<div class="form-container">
+    <h3>Decrypt Text</h3>
+    <form action="/text" method="post">
+        <!-- Input for encrypted text to decrypt -->
+        <textarea name="encrypted_text" placeholder="Enter text to decrypt" class="text-input" required></textarea>
+        
+        <!-- Input for decryption key -->
+        <input type="text" name="decryption_key" placeholder="Enter decryption key" class="text-input" required>
+        
+        <!-- Submit button for decryption -->
+        <button type="submit" name="decrypt" class="button">Decrypt</button>
+    </form>
+    
+    {% if decrypted_text %}
+    <!-- Section to display the decrypted text result -->
+    <h4>Decrypted Text:</h4>
+    <div class="result-box">
+        <p>{{ decrypted_text }}</p>
+    </div>
+    {% endif %}
+</div>
+<a href="{{ url_for('index') }}" class="button">Back to Home</a>
+{% endblock %}

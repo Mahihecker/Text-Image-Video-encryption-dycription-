@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Cryptographic App{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-image: url('{{ url_for("static", filename="images/Background.jpeg") }}');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+                margin: 0;
+                padding: 0;
+                color: #333; /* Black text for readability */
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh; /* Ensure full height for flexbox layout */
+            }
+        </style>
+    </head>
+    
+    <body class="{% block body_class %}{% endblock %}">
+        <header>
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/LOGO.png') }}" alt="Cryptographic App Logo" class="logo">
+            </div>
+        </header>
+        <div class="page-container">
+            <main class="container">
+                {% block content %}{% endblock %}
+            </main>
+            <footer>
+                <p>&copy; 2024 Cryptographic App. All rights reserved.</p>
+            </footer>
+        </div>
+    </body>
+</html>
