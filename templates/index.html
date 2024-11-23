@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RC4 Cryptography</title>
-</head>
-<body>
-    <h1>Welcome to RC4 Cryptography</h1>
-    <h3>Select an option:</h3>
-    <ul>
-        <li><a href="/text">Text Cryptography</a></li>
-        <li><a href="/image">Image Cryptography</a></li>
-        <li><a href="/video">Video Cryptography</a></li>
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Cryptography App</h1>
+    <p>Select an option to proceed:</p>
+    <div class="button-container">
+        <a href="{{ url_for('text_cryptography') }}" class="button">Text Cryptography</a>
+        <a href="{{ url_for('image_cryptography') }}" class="button">Image Cryptography</a>
+        <a href="{{ url_for('video_cryptography') }}" class="button">Video Cryptography</a>
+    </div>
+{% endblock %}
