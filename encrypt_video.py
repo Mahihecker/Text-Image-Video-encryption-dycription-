@@ -34,8 +34,8 @@ def encrypt_video(input_video_path, key, output_video_path):
     video = cv2.VideoCapture(input_video_path)
 
     # Get video properties
-    fps = int(video.get(cv2.CAP_PROP_FPS))
-    width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+    fps = int(video.get(cv2.CAP_PROP_FPS))#The number of frames per second (FPS) of the input video
+    width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))#Dimensions of the video frames
     height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4 output
 
@@ -49,6 +49,7 @@ def encrypt_video(input_video_path, key, output_video_path):
 
         # Flatten the frame into bytes
         frame_bytes = frame.tobytes()
+        
 
         # Encrypt only the pixel data
         keystream = (next(rc4_cipher.keygenerator) for _ in range(len(frame_bytes)))

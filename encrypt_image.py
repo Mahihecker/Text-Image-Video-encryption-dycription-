@@ -57,8 +57,8 @@ def encrypt_image(image_path, key, output_path):
 
     # Encrypt the bytes using the RC4 class
     rc4_cipher = RC4(key)
-    keystream = (next(rc4_cipher.keygenerator) for _ in range(len(img_bytes)))
-    encrypted_bytes = bytes([b ^ k for b, k in zip(img_bytes, keystream)])
+    keystream = (next(rc4_cipher.keygenerator) for _ in range(len(img_bytes)))#for total bytes in flattened image array,create that much number of keystreams but one by one in a loop
+    encrypted_bytes = bytes([b ^ k for b, k in zip(img_bytes, keystream)])#xor
 
     # Convert encrypted bytes back to array
     encrypted_array = np.frombuffer(encrypted_bytes, dtype=img_array.dtype).reshape(img_array.shape)
